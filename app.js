@@ -1,6 +1,12 @@
 
 let myLibrary = [];
 
+const formBtn = document.querySelector('#new-btn');
+const submitBook = document.querySelector('.submit-button');
+const changeStatus = document.querySelector('.btn-read-status');
+const removeBook = document.querySelector('.btn-remove');
+const editBook = document.querySelector('.btn-edit');
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -13,43 +19,36 @@ function Book(title, author, pages, read) {
     }
 }
 
-
-
-function addBookToLibrary() {
-const formBtn = document.querySelector('#new-btn');
-  const bookTitle = document.querySelector('#book-title');
-  const authorName = document.querySelector('#author-name');
-  const description = document.querySelector('#book-description');
-  const pagesNum = document.querySelector('#book-pages');
-  const status = document.querySelector('#read-status');
-  const submitBook = document.querySelector('.submit-button');
-  const changeStatus = document.querySelector('.btn-read-status');
-  const removeBook = document.querySelector('.btn-remove');
-  const editBook = document.querySelector('.btn-edit');
-
-  clickEventHandler(formBtn);
-  let inputs = submitBook.addEventListener('click', readInputs(5, authorName, description, pagesNum, status));
-  console.log(inputs);
+function createBook(book) {
+  myLibrary.push(book);
 }
 
-// function for handling click event.
-function clickEventHandler(button) {
+function addBookToLibrary() {
+  const bookTitle = document.getElementById('book-title').value;
+  console.log(bookTitle);
+  const authorName = document.getElementById('author-name').value;
+  const description = document.getElementById('book-description').value;
+  const pagesNum = document.getElementById('book-pages').value;
+  const status = document.getElementById('read-status').value;
+
+  createBook(new Book(bookTitle, authorName, description, pagesNum, status));
+}
+
+
+// function for handling click event on New Form.
+toggleForm(formBtn);
+
+function toggleForm(button) {
   button.addEventListener('click', function(){
     document.querySelector('.input-form').classList.toggle('form-visibility');
-
   });
 }
 
+// function for handling click event on Submit.
+submitForm(submitBook);
 
-
-function readInputs(bookTit, author, descrip, pages, status){
-  return {
-    title: bookTit.value,
-    authorName: author.value,
-    bookDescription: descrip.value,
-    noOfPages: pages.value,
-    readStatus: status.value
-
-  };
+function submitForm(button) {
+  button.addEventListener('click', addBookToLibrary());
 }
-addBookToLibrary();
+
+console.log(myLibrary);
