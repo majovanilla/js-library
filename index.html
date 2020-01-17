@@ -17,25 +17,25 @@
       <form class="input-form">
         <div>
           <label for="name">Book title:</label><br>
-          <input type="text" name="name" id="book-title" placeholder="Enter Book title" required>
+          <input type="text" name="name" id="book-title"  class="form-input" placeholder="Enter Book title" required>
         </div><br>
         <div>
           <label for="author">Author Name:</label><br>
-          <input type="text" name="author" id="author-name" placeholder="Enter author name" required>
+          <input type="text" name="author" id="author-name"  class="form-input" placeholder="Enter author name" required>
         </div><br>
         <div>
           <label for="description">Description:</label><br>
-          <input type="textarea" name="description" id="book-description" placeholder="describe the book" required>
+          <input type="textarea" name="description" id="book-description" class="form-input" placeholder="Describe the book" required>
         </div><br>
         <div>
           <label for="pages">No of pages:</label><br>
-          <input type="number" name="pages" id="book-pages" required>
+          <input type="number" name="pages" id="book-pages" class="form-input" required>
         </div><br>
         <div>
             <label for="read">Read Status</label>
             <input type="radio" name="read" value="read">
         </div><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="submit-button">
       </form>
     </header>
     <section id = "book-list">
@@ -48,10 +48,10 @@
                <p class="book-pages"><i class="fa fa-chevron-right"></i> No. of Pages: <span>245</span></p>
                 <p><i class="fa fa-chevron-right"></i> Read</p>
             </div>
-            <div class="container-status-btn"><button class="btn-read-status">Change read status</button></div>
             <div class="btns">
-                <button class="btn-remove">Remove Book</button>
-                <button class="btn-edit">Edit</button>
+              <button class="btn-read-status book-buttons">Read</button> <!-- Change the state of the button automatically -->
+              <button class="btn-remove book-buttons">Delete</button>
+              <button class="btn-edit book-buttons">Edit</button>
             </div>
         </div>
 

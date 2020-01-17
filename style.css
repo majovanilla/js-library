@@ -84,41 +84,75 @@ table {
 */
 
 header{
-    height: 400px;
+    height: auto;
     background-color: var(--header-bc-color);
+    padding-bottom: 50px;
 }
+
+/* New book form */
+
 .create-button {
     text-align: center;
 }
+
 button#new-btn {
     font-size: 16px;
     margin: 20px;
     padding: 5px;
     transition: all .2s ease-in-out;
 }
+
 button#new-btn:hover { transform: scale(1.1); }
 
 form {
   padding: 10px;
   text-align: center;
 }
+
 form:hover{
     transition: all .2s ease-in-out;
     transform: scale(1.05);
 }
+
 .input-form{
     margin: auto;
     width: 30%;
-    border: 2px solid var(--border-color);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-#book-pages {
+
+label {
+    text-align: left;
+}
+
+.form-input {
+    border-radius: 5px;
+    height: 25px;
+    width: 60%;
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+.form-radio {
+    padding-left: 90px;
+    font-size: 1.2rem;
+}
+
+.submit-button {
+    padding: 10px 30px;
+    font-size: 1rem;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+/* Book Section */
+
+.book-pages {
     width: 100px;
 }
-/* Book Section */
 
 #book-list {
     margin: auto;
-    padding: 60px 30px;
+    padding: 60px 230px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -126,15 +160,18 @@ form:hover{
 }
 
 .book-card {
-    height: 300px;
-    width: 250px;
+    height: 450px;
+    width: 350px;
     margin: 35px;
-    padding: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .book-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
+
 .book-title{
     font-size: 18px;
     font-style: bold;
@@ -144,6 +181,7 @@ form:hover{
     text-transform: uppercase;
     margin-bottom: 10px;
 }
+
 .author-name {
     color: #aaa;
     font-style: italic;
@@ -151,20 +189,27 @@ form:hover{
 }
 
 .description{
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 .book-pages {
     margin-bottom: 10px;
+    width: 50%;
 }
 
-.container-status-btn{
-    text-align: center;
-    margin: 10px 0;
+.book-details {
+    border-top: rgb(205, 206, 205) solid 1px;
+    padding: 20px 0px;
+    text-align: left;
 }
-.btn-read-status {
 
+.book-buttons {
+    padding: 5px;
+    font-size: 1rem;
+    width: 99px;
+    margin-right: 10px;
 }
+
 .btns{
     display: flex;
     flex-direction: row;
