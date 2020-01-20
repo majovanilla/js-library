@@ -3,7 +3,7 @@ let myLibrary = [];
 
 const formBtn = document.querySelector('#new-btn');
 const submitBook = document.querySelector('.submit-button');
-const changeStatus = document.querySelector('.btn-read-status');
+// const readStatus = document.querySelector('.btn-read-status');
 const removeBook = document.querySelector('.btn-remove');
 const editBook = document.querySelector('.btn-edit');
 const form = document.querySelector('.input-form');
@@ -64,7 +64,6 @@ submitBook.addEventListener("click", addBookToLibrary);
 
 function render(id, title, author, description, pages, status){
     let readingStatus, parentElement, html;
-    console.log(status);
     readingStatus = status === "read" ? "You have read this book" : "You haven't read this book";
     bookStatus = status === "read" ? "Unread" : "Read";
     html = `<div class= "book-card" id="${id}"><h3 class="book-title">${title}</h3>
@@ -75,8 +74,8 @@ function render(id, title, author, description, pages, status){
                   <p><i class="fa fa-chevron-right"></i> ${readingStatus}</p>
               </div>
               <div class="btns">
-                <button class="btn-read-status book-buttons">${bookStatus}</button>
-                <button class="btn-remove book-buttons">Delete</button>
+                <button class="btn-read-status book-buttons" onclick = "changeStatus(${id})">${bookStatus}</button>
+                <button class="btn-remove book-buttons" onclick = "deleteBook(${id})">Delete</button>
                 <button class="btn-edit book-buttons">Edit</button>
               </div>
             </div>`;
@@ -84,11 +83,6 @@ function render(id, title, author, description, pages, status){
     parentElement = document.querySelector('#book-list').insertAdjacentHTML('beforeend', html);
 }
 
-function modifyStatus(id) {
-  changeStatus.addEventListener('click', function() {
-    document.getElementById(id);
-  })
-}
 
 function inputValid(a, b, c, d) {
   if (a == "" || b == "" || c == "" || d == "") {
@@ -102,12 +96,27 @@ function randomId() {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
-
-function findBookID(btn){
-  let parentNodeID, ids, indexOfBook;
-  parentNodeID = btn.parentNode.parentNode.id;
-  ids = myLibrary.map(cur => return cur.id);
-  indexOfBook = ids.indexOf(parentNodeID);
-  return indexOfBook;
+function deleteBook(id) {
+  let index = getIndexofBook(id);
+  myLibrary.splice(index, 1);
 }
+
+function changeStatus(id){
+  let index = getIndexofBook(id);
+
+  myLibrary[index].status = myLibrary[index].status == 'read' ? 'unread' : 'read';
+}
+
+function getIndexofBook(id) {
+  let book = myLibrary.find(book => book["id"] == id);
+  let index = myLibrary.indexOf(book);
+}
+
+let id = "123ser";
+let book = myLibrary.find(book => book["id"] == id);
+console.log("book: " + book);
+console.log("get index of: " + getIndexofBook(id));
+console.log("find index of: " + myLibrary.indexOf(book))
+
 console.log(myLibrary);
+console.log(myLibrary.find(book => book["id"] == "123ser"))
