@@ -10,12 +10,12 @@ const form = document.querySelector('.input-form');
 
 myLibrary.push(new Book('123ser', 'test book', 'test author', 'test book description', 1234, 'read'));
 myLibrary.push(new Book('123r', 'test book 2', 'test author random', 'test book description 2', 134, ''));
-if (myLibrary.length > 0)
+/*if (myLibrary.length > 0)
 {
   for(let book of myLibrary){
     render(book.id, book.title, book.author, book.description, book.pages, book.read);
   }
-}
+}*/
 function Book(id, title, author, description, pages, read) {
     this.id = id;
     this.title = title;
@@ -33,6 +33,7 @@ function Book(id, title, author, description, pages, read) {
 function createBook(book) {
   myLibrary.push(book);
   document.querySelector('.input-form').classList.toggle('form-visibility');
+  render(myLibrary);
 }
 
 function addBookToLibrary() {
@@ -45,8 +46,7 @@ function addBookToLibrary() {
   let book =new Book(id, bookTitle, authorName, description, pagesNum, status);
   let valid = inputValid(bookTitle, authorName, description, pagesNum);
 
-  if (valid == true) {createBook(book);
-  render(id, bookTitle, authorName, description, pagesNum, status);}
+  if (valid == true) {createBook(book);}
   form.reset();
 }
 
@@ -62,24 +62,23 @@ function toggleForm(button) {
 // function for handling click event on Submit.
 submitBook.addEventListener("click", addBookToLibrary);
 
-function render(id, title, author, description, pages, status){
+  function render(arr){
+   for (let book of arr) {
     let readingStatus, parentElement, html;
-    readingStatus = status === "read" ? "You have read this book" : "You haven't read this book";
-    bookStatus = status === "read" ? "Unread" : "Read";
-    html = `<div class= "book-card" id="${id}"><h3 class="book-title">${title}</h3>
-              <p class="author-name">by ${author}</p>
-              <p class="description">${description}</p>
-              <div class="book-details">
-                 <p class="book-pages"><i class="fa fa-chevron-right"></i> No. of Pages: <span>${pages}</span></p>
-                  <p><i class="fa fa-chevron-right"></i> ${readingStatus}</p>
-              </div>
-              <div class="btns">
-                <button class="btn-read-status book-buttons" onclick = "changeStatus(${id})">${bookStatus}</button>
-                <button class="btn-remove book-buttons" onclick = "deleteBook(${id})">Delete</button>
-                <button class="btn-edit book-buttons">Edit</button>
-              </div>
-            </div>`;
-
+    readingStatus = book.status === "read" ? "You have read this book" : "you haven't read this book";
+    html = `<div class= "book-card"><h3 class="book-title">${book.title}</h3>
+            <p class="author-name">by ${book.author}</p>
+            <p class="description">${book.description}</p>
+            <div class="book-details">
+               <p class="book-pages"><i class="fa fa-chevron-right"></i> No. of Pages: <span>${book.pages}</span></p>
+                <p><i class="fa fa-chevron-right"></i> ${readingStatus}</p>
+            </div>
+            <div class="btns">
+              <button class="btn-read-status book-buttons">Read</button>
+              <button class="btn-remove book-buttons">Delete</button>
+              <button class="btn-edit book-buttons">Edit</button>
+            </div>
+        </div>`;
     parentElement = document.querySelector('#book-list').insertAdjacentHTML('beforeend', html);
 }
 
@@ -98,25 +97,33 @@ function randomId() {
 
 function deleteBook(id) {
   let index = getIndexofBook(id);
+ // console.log(myLibrary);
   myLibrary.splice(index, 1);
+  //console.log(myLibrary);
+  render(myLibrary);
 }
 
 function changeStatus(id){
   let index = getIndexofBook(id);
-
-  myLibrary[index].status = myLibrary[index].status == 'read' ? 'unread' : 'read';
+  myLibrary[index].read = myLibrary[index].read == 'read' ? 'unread' : 'read';
+  render(myLibrary);
 }
 
-function getIndexofBook(id) {
-  let book = myLibrary.find(book => book["id"] == id);
-  let index = myLibrary.indexOf(book);
+function getIndexofBook(bookId) {
+  let ids, index;
+  ids = myLibrary.map(function(current){
+        return current.id;
+      });
+  index = ids.indexOf(bookId);
+  return index;
+  /*let book = myLibrary.find(book => book["id"] == id);
+  let index = myLibrary.indexOf(book);*/
 }
 
-let id = "123ser";
-let book = myLibrary.find(book => book["id"] == id);
-console.log("book: " + book);
+/*let id = "123ser";
+let book1 = myLibrary.find(book => book["id"] == id);
+console.log("book: " + book1);
 console.log("get index of: " + getIndexofBook(id));
-console.log("find index of: " + myLibrary.indexOf(book))
+console.log("find index of: " + myLibrary.indexOf(book1))
+*/
 
-console.log(myLibrary);
-console.log(myLibrary.find(book => book["id"] == "123ser"))
