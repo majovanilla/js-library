@@ -7,6 +7,7 @@
   --header-bc-color: #D5F4E6;
   --form-bc-color: #F4E1D2;
   --section-bc-color: #FEFBD8;
+  --card-bc-color: #B6CEC7;
   --border-color: #F58142;
 }
 
@@ -170,6 +171,7 @@ label {
     margin: 35px;
     padding: 30px;
     text-align: center;
+    background-color: var(--card-bc-color);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
