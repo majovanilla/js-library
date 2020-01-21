@@ -8,14 +8,9 @@ const removeBook = document.querySelector('.btn-remove');
 const editBook = document.querySelector('.btn-edit');
 const form = document.querySelector('.input-form');
 
-myLibrary.push(new Book('123ser', 'test book', 'test author', 'test book description', 1234, 'read'));
-myLibrary.push(new Book('123r', 'test book 2', 'test author random', 'test book description 2', 134, ''));
-/*if (myLibrary.length > 0)
-{
-  for(let book of myLibrary){
-    render(book.id, book.title, book.author, book.description, book.pages, book.read);
-  }
-}*/
+createBook(new Book('123ser', 'test book', 'test author', 'test book description', 1234, 'unread'));
+createBook(new Book('123r', 'test book 2', 'test author random', 'test book description 2', 134, 'unread'));
+
 function Book(id, title, author, description, pages, read) {
     this.id = id;
     this.title = title;
@@ -63,23 +58,25 @@ function toggleForm(button) {
 submitBook.addEventListener("click", addBookToLibrary);
 
   function render(arr){
-   for (let book of arr) {
-    let readingStatus, parentElement, html;
-    readingStatus = book.status === "read" ? "You have read this book" : "you haven't read this book";
-    html = `<div class= "book-card"><h3 class="book-title">${book.title}</h3>
-            <p class="author-name">by ${book.author}</p>
-            <p class="description">${book.description}</p>
-            <div class="book-details">
-               <p class="book-pages"><i class="fa fa-chevron-right"></i> No. of Pages: <span>${book.pages}</span></p>
-                <p><i class="fa fa-chevron-right"></i> ${readingStatus}</p>
-            </div>
-            <div class="btns">
-              <button class="btn-read-status book-buttons">Read</button>
-              <button class="btn-remove book-buttons">Delete</button>
-              <button class="btn-edit book-buttons">Edit</button>
-            </div>
-        </div>`;
-    parentElement = document.querySelector('#book-list').insertAdjacentHTML('beforeend', html);
+    let html = "";
+    for (let book of arr) {
+      let readingStatus = book.read == "read" ? "You have read this book" : "You haven't read this book";
+      html += `<div class= "book-card"><h3 class="book-title">${book.title}</h3>
+              <p class="author-name">by ${book.author}</p>
+              <p class="description">${book.description}</p>
+              <div class="book-details">
+                <p class="book-pages"><i class="fa fa-chevron-right"></i> No. of Pages: <span>${book.pages}</span></p>
+                  <p><i class="fa fa-chevron-right"></i> ${readingStatus}</p>
+              </div>
+              <div class="btns">
+                <button class="btn-read-status book-buttons" onclick="changeStatus('${book.id}')">Read</button>
+                <button class="btn-remove book-buttons" onclick="deleteBook('${book.id}')">Delete</button>
+                <button class="btn-edit book-buttons">Edit</button>
+              </div>
+          </div>`;
+    }  
+    // document.querySelector('#book-list').insertAdjacentHTML('beforeend', html);
+    document.getElementById('book-list').innerHTML = html;
 }
 
 
@@ -97,9 +94,7 @@ function randomId() {
 
 function deleteBook(id) {
   let index = getIndexofBook(id);
- // console.log(myLibrary);
   myLibrary.splice(index, 1);
-  //console.log(myLibrary);
   render(myLibrary);
 }
 
@@ -110,20 +105,7 @@ function changeStatus(id){
 }
 
 function getIndexofBook(bookId) {
-  let ids, index;
-  ids = myLibrary.map(function(current){
-        return current.id;
-      });
-  index = ids.indexOf(bookId);
+  let ids = myLibrary.map(current => current.id);
+  let index = ids.indexOf(bookId);
   return index;
-  /*let book = myLibrary.find(book => book["id"] == id);
-  let index = myLibrary.indexOf(book);*/
 }
-
-/*let id = "123ser";
-let book1 = myLibrary.find(book => book["id"] == id);
-console.log("book: " + book1);
-console.log("get index of: " + getIndexofBook(id));
-console.log("find index of: " + myLibrary.indexOf(book1))
-*/
-
