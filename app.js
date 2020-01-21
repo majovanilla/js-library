@@ -1,9 +1,16 @@
 
 let myLibrary = [];
 let operation = null;
-const formBtn = document.querySelector('#new-btn');
-const submitBook = document.querySelector('.submit-button');
-const form = document.querySelector('.input-form');
+
+const domSelector = {
+  formBtn: document.querySelector('#new-btn'),
+  submitBook: document.querySelector('.submit-button'),
+  form: document.querySelector('.input-form'),
+  bookTitle: document.getElementById('book-title'),
+  authorName: document.getElementById('author-name'),
+  description: document.getElementById('book-description'),
+  pagesNum: document.getElementById('book-pages'),
+};
 
 function render(arr) {
   let html = '';
@@ -43,33 +50,33 @@ function Book(id, title, author, description, pages, read) {
 
 function createBook(book) {
   myLibrary.push(book);
-  document.querySelector('.input-form').classList.toggle('form-visibility');
+  domSelector.form.classList.toggle('form-visibility');
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   render(myLibrary);
 }
 
 function readInputValues() {
   return {
-    bookTitle: document.getElementById('book-title').value,
-    authorName: document.getElementById('author-name').value,
-    description: document.getElementById('book-description').value,
-    pagesNum: document.getElementById('book-pages').value,
+    bookTitle: domSelector.bookTitle.value,
+    authorName: domSelector.authorName.value,
+    description: domSelector.description.value,
+    pagesNum: domSelector.pagesNum.value,
     status: document.querySelector('input[name="read"]:checked').value,
   };
 }
 
 function clearForm() {
-  form.reset();
+  domSelector.form.reset();
   operation = null;
 }
 
 function toggleForm(button) {
   button.addEventListener('click', () => {
-    form.classList.toggle('form-visibility');
+    domSelector.form.classList.toggle('form-visibility');
   });
 }
 
-toggleForm(formBtn);
+toggleForm(domSelector.formBtn);
 
 function inputValid(a, b, c, d) {
   if (a === '' || b === '' || c === '' || d === '') {
@@ -96,35 +103,34 @@ function saveEditedInfo(index) {
   myLibrary[index].pages = changedInputs.pagesNum;
   myLibrary[index].read = changedInputs.status;
   clearForm();
-  form.classList.toggle('form-visibility');
+  domSelector.form.classList.toggle('form-visibility');
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   render(myLibrary);
 }
 
 function sendInfoToForm(bookIndex) {
   operation = bookIndex;
-  document.getElementById('book-title').value = myLibrary[bookIndex].title;
-  document.getElementById('author-name').value = myLibrary[bookIndex].author;
-  document.getElementById('book-description').value = myLibrary[bookIndex].description;
-  document.getElementById('book-pages').value = myLibrary[bookIndex].pages;
+  domSelector.bookTitle.value = myLibrary[bookIndex].title;
+  domSelector.authorName.value = myLibrary[bookIndex].author;
+  domSelector.description.value = myLibrary[bookIndex].description;
+  domSelector.pagesNum.value = myLibrary[bookIndex].pages;
 }
 
 function editBookInfo(bookId) {
   const index = getIndexofBook(bookId);
-  const classStatus = form.classList.contains('form-visibility');
+  const classStatus = domSelector.form.classList.contains('form-visibility');
   if (classStatus === false) {
-    form.classList.add('form-visibility');
+    domSelector.form.classList.add('form-visibility');
   }
   sendInfoToForm(index);
 }
 
 function addBookToLibrary() {
-  const bookInfo = readInputValues();
+  // eslint-disable-next-line object-curly-newline
+  const { bookTitle, authorName, description, pagesNum, status } = readInputValues();
   const id = randomId();
-  const book = new Book(id, bookInfo.bookTitle, bookInfo.authorName,
-    bookInfo.description, bookInfo.pagesNum, bookInfo.status);
-  const valid = inputValid(bookInfo.bookTitle, bookInfo.authorName, bookInfo.description,
-    bookInfo.pagesNum);
+  const book = new Book(id, bookTitle, authorName, description, pagesNum, status);
+  const valid = inputValid(bookTitle, authorName, description, pagesNum);
 
   if (valid === true) { createBook(book); }
   clearForm();
@@ -152,4 +158,4 @@ function selectOperation() {
   }
 }
 
-submitBook.addEventListener('click', selectOperation);
+domSelector.submitBook.addEventListener('click', selectOperation);
