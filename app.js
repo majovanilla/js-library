@@ -10,11 +10,11 @@ const form = document.querySelector('.input-form');
 
 // for the local storage
 let storedBooks = JSON.parse(localStorage.getItem("myLibrary"));
-if(storedBooks.length > 0)
-{
-  myLibrary = [...storedBooks];
-  render(myLibrary);
-}
+if(storedBooks)
+  {
+    myLibrary = [...storedBooks];
+    render(myLibrary);
+  }
 
 function selectOperation(){
   operation == null ? addBookToLibrary() : saveEditedInfo(operation);
