@@ -1,15 +1,24 @@
 
 let myLibrary = [];
-
+let operation = null;
 const formBtn = document.querySelector('#new-btn');
 const submitBook = document.querySelector('.submit-button');
 // const readStatus = document.querySelector('.btn-read-status');
 const removeBook = document.querySelector('.btn-remove');
-const editBook = document.querySelector('.btn-edit');
+//const editBook = document.querySelector('.btn-edit');
 const form = document.querySelector('.input-form');
 
-createBook(new Book('123ser', 'test book', 'test author', 'test book description', 1234, 'unread'));
-createBook(new Book('123r', 'test book 2', 'test author random', 'test book description 2', 134, 'unread'));
+// for the local storage
+let storedBooks = JSON.parse(localStorage.getItem("myLibrary"));
+if(storedBooks.length > 0)
+{
+  myLibrary = [...storedBooks];
+  render(myLibrary);
+}
+
+function selectOperation(){
+  operation == null ? addBookToLibrary() : saveEditedInfo(operation);
+}
 
 function Book(id, title, author, description, pages, read) {
     this.id = id;
@@ -28,23 +37,36 @@ function Book(id, title, author, description, pages, read) {
 function createBook(book) {
   myLibrary.push(book);
   document.querySelector('.input-form').classList.toggle('form-visibility');
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
   render(myLibrary);
 }
 
+// Reads input values from the form.
+function readInputValues(){
+  return {
+  bookTitle: document.getElementById("book-title").value,
+  authorName: document.getElementById("author-name").value,
+  description: document.getElementById("book-description").value,
+  pagesNum: document.getElementById("book-pages").value,
+  status: document.querySelector('input[name="read"]:checked').value
+  }
+}
 function addBookToLibrary() {
-  const bookTitle =  document.getElementById("book-title").value;
-  const authorName = document.getElementById("author-name").value;
-  const description = document.getElementById("book-description").value;
-  const pagesNum = document.getElementById("book-pages").value;
-  const status = document.querySelector('input[name="read"]:checked').value;
+  let bookInfo = readInputValues();
   const id = randomId();
-  let book =new Book(id, bookTitle, authorName, description, pagesNum, status);
-  let valid = inputValid(bookTitle, authorName, description, pagesNum);
+  let book =new Book(id, bookInfo.bookTitle, bookInfo.authorName, bookInfo.description, bookInfo.pagesNum, bookInfo.status);
+  let valid = inputValid(bookInfo.bookTitle, bookInfo.authorName, bookInfo.description, bookInfo.pagesNum);
 
   if (valid == true) {createBook(book);}
-  form.reset();
+  clearForm();
 }
 
+
+function clearForm()
+{
+  form.reset();
+  operation = null;
+}
 // function for handling click event on New Form.
 toggleForm(formBtn);
 
@@ -55,7 +77,7 @@ function toggleForm(button) {
 }
 
 // function for handling click event on Submit.
-submitBook.addEventListener("click", addBookToLibrary);
+submitBook.addEventListener("click", selectOperation);
 
   function render(arr){
     let html = "";
@@ -71,15 +93,15 @@ submitBook.addEventListener("click", addBookToLibrary);
               <div class="btns">
                 <button class="btn-read-status book-buttons" onclick="changeStatus('${book.id}')">Read</button>
                 <button class="btn-remove book-buttons" onclick="deleteBook('${book.id}')">Delete</button>
-                <button class="btn-edit book-buttons">Edit</button>
+                <button class="btn-edit book-buttons" onclick="editBookInfo('${book.id}')">Edit</button>
               </div>
           </div>`;
-    }  
+    }
     // document.querySelector('#book-list').insertAdjacentHTML('beforeend', html);
     document.getElementById('book-list').innerHTML = html;
 }
 
-
+// Validates the input form.
 function inputValid(a, b, c, d) {
   if (a == "" || b == "" || c == "" || d == "") {
     alert('You need to fill all the form');
@@ -87,25 +109,64 @@ function inputValid(a, b, c, d) {
   }
   return true;
 }
-
+// Generate random IDs for books.
 function randomId() {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
-
+//Delete book from the array.
 function deleteBook(id) {
   let index = getIndexofBook(id);
   myLibrary.splice(index, 1);
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
   render(myLibrary);
 }
-
+// Changes the reading status.
 function changeStatus(id){
   let index = getIndexofBook(id);
   myLibrary[index].read = myLibrary[index].read == 'read' ? 'unread' : 'read';
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
   render(myLibrary);
 }
 
+// Finds the index of book in myLibrary array.
 function getIndexofBook(bookId) {
   let ids = myLibrary.map(current => current.id);
   let index = ids.indexOf(bookId);
   return index;
 }
+
+// Main function to edit the book info.
+function editBookInfo(bookId){
+  let index = getIndexofBook(bookId);
+  let classStatus = form.classList.contains('form-visibility');
+  if(classStatus == false);
+  {
+    form.classList.add('form-visibility');
+  }
+  sendInfoToForm(index);
+}
+
+function saveEditedInfo(index){
+  let changedInputs = readInputValues();
+  myLibrary[index].title = changedInputs.bookTitle;
+  myLibrary[index].author = changedInputs.authorName;
+  myLibrary[index].description = changedInputs.description;
+  myLibrary[index].pages = changedInputs.pagesNum;
+  myLibrary[index].read = changedInputs.status;
+  clearForm();
+  form.classList.toggle('form-visibility');
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+  render(myLibrary);
+}
+
+// sends the existing book info to the form for editing.
+function sendInfoToForm(bookIndex){
+  operation = bookIndex;
+  document.getElementById('book-title').value = myLibrary[bookIndex].title;
+  document.getElementById('author-name').value = myLibrary[bookIndex].author;
+  document.getElementById('book-description').value = myLibrary[bookIndex].description;
+  document.getElementById('book-pages').value = myLibrary[bookIndex].pages;
+  //document.querySelector('input[name="read"]:checked').value = myLibrary[bookIndex].read;
+
+}
+
