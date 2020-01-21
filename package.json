@@ -1,0 +1,25 @@
+{
+  "name": "js-library",
+  "version": "1.0.0",
+  "description": "> This project is a basic online Library.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/majovanilla/js-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/majovanilla/js-library/issues"
+  },
+  "homepage": "https://github.com/majovanilla/js-library#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0"
+  }
+}
