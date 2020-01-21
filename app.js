@@ -3,9 +3,6 @@ let myLibrary = [];
 let operation = null;
 const formBtn = document.querySelector('#new-btn');
 const submitBook = document.querySelector('.submit-button');
-// const readStatus = document.querySelector('.btn-read-status');
-const removeBook = document.querySelector('.btn-remove');
-//const editBook = document.querySelector('.btn-edit');
 const form = document.querySelector('.input-form');
 
 // for the local storage
@@ -112,7 +109,8 @@ function inputValid(a, b, c, d) {
 // Generate random IDs for books.
 function randomId() {
   return '_' + Math.random().toString(36).substr(2, 9);
-};
+}
+
 //Delete book from the array.
 function deleteBook(id) {
   let index = getIndexofBook(id);
@@ -120,6 +118,7 @@ function deleteBook(id) {
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
   render(myLibrary);
 }
+
 // Changes the reading status.
 function changeStatus(id){
   let index = getIndexofBook(id);
