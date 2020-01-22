@@ -1,4 +1,3 @@
-
 let myLibrary = [];
 let operation = null;
 
@@ -159,3 +158,5 @@ function selectOperation() {
 }
 
 domSelector.submitBook.addEventListener('click', selectOperation);
+
+export { deleteBook, editBookInfo, changeStatus };
