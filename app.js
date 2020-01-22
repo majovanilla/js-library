@@ -125,6 +125,7 @@ function editBookInfo(bookId) {
 }
 
 function addBookToLibrary() {
+  // eslint-disable-next-line object-curly-newline
   const { bookTitle, authorName, description, pagesNum, status } = readInputValues();
   const id = randomId();
   const book = new Book(id, bookTitle, authorName, description, pagesNum, status);
