@@ -20,7 +20,7 @@ This project has this characteristics:
 
 ## Live Demo
 
-[Live Demo Link]()
+[Live Demo Link](https://majovanilla.github.io/js-library/)
 
 ## Authors
 
