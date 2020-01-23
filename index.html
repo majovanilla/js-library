@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Abril Fatface' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>Library</title>
+</head>
+<body>
+    <header>
+        <div class="create-button">
+            <button id="new-btn"> Add New Book</button>
+        </div>
+      <form class="input-form">
+        <div>
+          <label for="name">Book title:</label><br>
+          <input type="text" name="name" id="book-title"  class="form-input" placeholder="Enter Book title"  required>
+        </div><br>
+        <div>
+          <label for="author">Author Name:</label><br>
+          <input type="text" name="author" id="author-name"  class="form-input" placeholder="Enter author name" required>
+        </div><br>
+        <div>
+          <label for="description">Description:</label><br>
+          <input type="textarea" name="description" id="book-description" class="form-input" placeholder="Describe the book"  required>
+        </div><br>
+        <div>
+          <label for="pages">No of pages:</label><br>
+          <input type="number" name="pages" id="book-pages" class="form-input" required>
+        </div><br>
+        <div>
+            <label for="read">Read Status</label>
+            <input type="radio" name="read" id="read-status" value="read">
+            <label for="read">Not Read</label>
+            <input type="radio" name="read" id="unread-status" value="unread">
+        </div><br>
+        <input type="button" value="Submit" class="submit-button" >
+      </form>
+    </header>
+    <section id = "book-list">
+
+    </section>
+
+
+<script src="app.js"></script>
+</body>
+</html>
