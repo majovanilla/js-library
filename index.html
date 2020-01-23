@@ -17,44 +17,30 @@
       <form class="input-form">
         <div>
           <label for="name">Book title:</label><br>
-          <input type="text" name="name" id="book-title" placeholder="Enter Book title" required>
+          <input type="text" name="name" id="book-title"  class="form-input" placeholder="Enter Book title"  required>
         </div><br>
         <div>
           <label for="author">Author Name:</label><br>
-          <input type="text" name="author" id="author-name" placeholder="Enter author name" required>
+          <input type="text" name="author" id="author-name"  class="form-input" placeholder="Enter author name" required>
         </div><br>
         <div>
           <label for="description">Description:</label><br>
-          <input type="textarea" name="description" id="book-description" placeholder="describe the book" required>
+          <input type="textarea" name="description" id="book-description" class="form-input" placeholder="Describe the book"  required>
         </div><br>
         <div>
           <label for="pages">No of pages:</label><br>
-          <input type="number" name="pages" id="book-pages" required>
+          <input type="number" name="pages" id="book-pages" class="form-input" required>
         </div><br>
         <div>
             <label for="read">Read Status</label>
-            <input type="radio" name="read" value="read">
+            <input type="radio" name="read" id="read-status" value="read">
+            <label for="read">Not Read</label>
+            <input type="radio" name="read" id="unread-status" value="unread">
         </div><br>
-        <input type="submit" value="Submit">
+        <input type="button" value="Submit" class="submit-button" >
       </form>
     </header>
     <section id = "book-list">
-
-        <div class= "book-card">
-            <h3 class="book-title"> Web Development For Beginners</h3>
-            <p class="author-name">by Suman Shrestha</p>
-            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-            <div class="book-details">
-               <p class="book-pages"><i class="fa fa-chevron-right"></i> No. of Pages: <span>245</span></p>
-                <p><i class="fa fa-chevron-right"></i> Read</p>
-            </div>
-            <div class="container-status-btn"><button class="btn-read-status">Change read status</button></div>
-            <div class="btns">
-                <button class="btn-remove">Remove Book</button>
-                <button class="btn-edit">Edit</button>
-            </div>
-        </div>
-
 
     </section>
 
